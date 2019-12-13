@@ -1,11 +1,11 @@
 # oc-pizza [OCP5] 
 OCR - Concevez la solution technique d’un système de gestion de pizzeria
 
-@[UML_src](https://github.com/rvallet/) : UML source files .puml
-@[img](https://github.com/rvallet/) : UML image files .png
+@[UML_src](https://github.com/rvallet/oc-pizza-ocr5/uml/src) : UML source files .puml
+@[img](https://github.com/rvallet/oc-pizza-ocr5/uml/img) : UML image files .png
 
-@[Files_src](https://github.com/rvallet/) : Text, Sheet and Presentation source files
-@[Deliverables](https://github.com/rvallet/) : Deliverables files (.pdf, .odp)
+@[Files_src](https://github.com/rvallet/oc-pizza-ocr5/src) : Text, Sheet and Presentation source files
+@[Deliverables](https://github.com/rvallet/oc-pizza-ocr5/deliverables) : Deliverables files (.pdf, .odp)
 
 ## Conception de l’architecture technique d’une application et Description du domaine fonctionnel
 
@@ -47,7 +47,7 @@ En tant qu’analyste-programmeur, votre travail consiste, à ce stade, à défi
 
 * **Rémy VALLET** - *Initial work* - [rvallet](https://github.com/rvallet)
 
-See also the list of [contributors](https://github.com/rvallet/**/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/rvallet/oc-pizza-ocr5/contributors) who participated in this project.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/rvallet/**/blob/master/LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/rvallet/oc-pizza-ocr5/blob/master/LICENSE) file for details

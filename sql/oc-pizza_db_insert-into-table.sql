@@ -1,10 +1,18 @@
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.phonenumber (PK id serial auto-increment)
 -- -----------------------------------------------------
-INSERT INTO oc_pizza.user_phonenumber (
-	user_id_user,
-	phonenumber_id_phonenumber) 
-VALUES (NULL, NULL);
+INSERT INTO `oc_pizza`.`phonenumber` (
+	`id_phonenumber`, 
+	`type`, 
+	`phone_number`, 
+	`is_default`) 
+VALUES 
+	(1, 'Portable1', '+33601020304_GSM1', 1),
+	(2, 'Portable2', '+33601020304_GSM2', 1),
+	(3, 'Portable3', '+33601020304_GSM3', 1),
+	(4, 'Portable4', '+33601020304_GSM4', 1),
+	(5, 'Portable5', '+33601020304_GSM5', 1),
+	(6, 'Portable6', '+33601020304_GSM6', 0);
   
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.address (PK id serial auto-increment)
@@ -68,31 +76,35 @@ VALUES
 INSERT INTO oc_pizza.user_address (
 	user_id_user, 
 	address_id_address) 
-VALUES (NULL, NULL);
-	
+VALUES 
+	(1, 1),
+	(2, 2),
+	(3, 3),
+	(4, 4),
+	(5, 5),
+	(6, 6);
+
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.user_phonenumber
 -- -----------------------------------------------------
 INSERT INTO oc_pizza.user_phonenumber (
 	user_id_user, 
 	phonenumber_id_phonenumber)
-VALUES (NULL, NULL);
+VALUES
+	(1, 1),
+	(2, 2),
+	(3, 3),
+	(4, 4),
+	(5, 5),
+	(6, 6);
 	
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.userrole
 -- -----------------------------------------------------
-INSERT INTO oc_pizza.user_userrole (
-	user_id_user, 
-	user_pointofsale_id_pointofsale, 
-	user_pointofsale_phonenumber_id_phonenumber, 
-	user_pointofsale_address_id_address, 
-	user_pointofsale_openinghours_id_openinghours, 
-	userrole_id_userrole, 
-	typedecontrat, 
-	start_date, 
-	end_date) 
-VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-
+INSERT INTO `oc_pizza`.`userrole` (
+	`id_userrole`, 
+	`role_name`) 
+VALUES (1, 1);
   
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.openinghours
@@ -144,7 +156,7 @@ VALUES (NULL, NULL, NULL);
 -- Insert into table oc_pizza.order
 -- -----------------------------------------------------
 INSERT INTO oc_pizza.order (
-	id_order, 
+-- 	id_order, 
 	splitedorder_id_splitedorder, 
 	orderline_id_orderline, 
 	invoice_id_invoice, 
@@ -154,7 +166,7 @@ INSERT INTO oc_pizza.order (
 	user_pointofsale_phonenumber_id_phonenumber, 
 	user_pointofsale_address_id_address, 
 	user_pointofsale_openinghours_id_openinghours) 
-VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+VALUES (1, 1, 1, 1, 1, 1, 1, 1, 1);
 	
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.pointofsale_openinghours
@@ -165,7 +177,7 @@ INSERT INTO oc_pizza.pointofsale_openinghours (
 	pointofsale_address_id_address, 
 	pointofsale_openinghours_id_openinghours, 
 	openinghours_id_openinghours) 
-VALUES (NULL, NULL, NULL, NULL, NULL);
+VALUES (1, 1, 1, 1, 1);
 	
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.compoundproduct
@@ -177,7 +189,7 @@ INSERT INTO oc_pizza.compoundproduct (
 	pvht, 
 	orderline_id_orderline, 
 	orderline_product_id_product) 
-VALUES (NULL, NULL, NULL, NULL, NULL, NULL);
+VALUES (1, 1, 'Pizza1', 13.71, 1, 1);
   
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.product
@@ -196,7 +208,14 @@ INSERT INTO oc_pizza.product (
 	compoundproduct_id_compoundproduct, 
 	compoundproduct_orderline_id_orderline, 
 	compoundproduct_orderline_product_id_product) 
-VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+VALUES 
+	(1, 'base_tomate', 'TOMAT-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 0.012, 'L', 100, 1, 1, 1),
+	(2, 'base_creme', 'CREME-6510790', '1234567890123', 'Base pizza crème', 0.50, 0.12, 0.012, 'L', 50, 1, 1, 1),
+	(3, 'basilic', 'BASILIC-6510790', '1234567890123', 'Basilic frais', 0.50, 0.12, 0.012, 'g', 100, 1, 1, 1),
+	(4, 'mozzarella', 'MOZZA-6510790', '1234567890123', 'Mozzarella B.', 0.50, 0.12, 0.012, 'g', 100, 1, 1, 1),
+	(5, 'oeuf', 'OEUF-6510790', '1234567890123', 'Oeuf Calibre M', 0.50, 0.12, 0.012, 'unit', 100, 1, 1, 1),
+	(6, 'champignon', 'CHAMP-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 0.012, 'g', 100, 1, 1, 1),
+	(7, 'olives', 'OLIVE-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 0.012, 'g', 100, 1, 1, 1);
 	
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.orderline
@@ -220,7 +239,7 @@ INSERT INTO oc_pizza.orderline (
 	compoundproduct_id_compoundproduct, 
 	compoundproduct_orderline_id_orderline, 
 	compoundproduct_orderline_product_id_product) 
-VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+VALUES (1, 1, 12.45, 'En cours de Préparation', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 	
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.user_userrole
@@ -235,4 +254,4 @@ INSERT INTO oc_pizza.user_userrole (
 	typedecontrat, 
 	start_date, 
 	end_date) 
-VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+VALUES (1, 1, 1, 1, 1, 1, 'CDI', date_format('2019-01-01', "%Y-%m-%d"), NULL);

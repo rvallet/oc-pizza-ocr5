@@ -127,56 +127,6 @@ VALUES
 	(14,'Dimanche', null, null, null, null);
   
 -- -----------------------------------------------------
--- Insert into table oc_pizza.invoice
--- -----------------------------------------------------
-INSERT INTO oc_pizza.invoice (
-	id_invoice, 
-	transaction_method, 
-	transaction_status, 
-	transaction_reference, 
-	transaction_date, 
-	amount) 
-VALUES 
-	(1,'CB', 'Validated', '00200000614C', date_format('2020-01-20', "%Y-%m-%d"), 14.95),
-	(2,'CB', 'Aborted', 'NULL', date_format('2020-01-21', "%Y-%m-%d"), 0.00),
-	(3,'Ticket Restaurant', 'Validated', 'CAISSE_PDV1-TRANSAC1B256225599TR', date_format('2019-12-20', "%Y-%m-%d"), 21.00),
-	(4,'Espèce', 'Validated', 'CAISSE_PDV1-TRANSAC1B256225599ESP', date_format('2019-12-20', "%Y-%m-%d"), 37.50),
-	(5,'CB', 'Validated', '00200000615C', date_format('2019-12-18', "%Y-%m-%d"), 11.00),
-	(6,'CB', 'Validated', '00200000616C', date_format('2019-12-15', "%Y-%m-%d"), 14.95);
-  
--- -----------------------------------------------------
--- Insert into table oc_pizza.delivery
--- -----------------------------------------------------
-INSERT INTO oc_pizza.delivery (
-	id_delivery, 
-	date, 
-	status) 
-VALUES 
-	(1, date_format('2020-01-20', "%Y-%m-%d"), 'Delivered'),
-	(2, date_format('2019-12-20', "%Y-%m-%d"), 'Aborted'),
-	(3, date_format('2019-12-20', "%Y-%m-%d"), 'Delivered'),
-	(4, date_format('2019-12-18', "%Y-%m-%d"), 'Delivered'),
-	(5, date_format('2019-12-18', "%Y-%m-%d"), 'Delivered'),
-	(6, date_format('2019-12-18', "%Y-%m-%d"), 'In Progress');
-
--- -----------------------------------------------------
--- Insert into table oc_pizza.order
--- -----------------------------------------------------
-INSERT INTO oc_pizza.order (
-	id_order, 
-	invoice_id_invoice, 
-	delivery_id_delivery,
-	user_id_user,
-	user_pointofsale_id_pointofsale)
-VALUES 
-	(1, 1, 1, 1, 1),
-	(2, 2, 2, 2, 2),
-	(3, 3, 3, 3, 3),
-	(4, 4, 4, 1, 1),
-	(5, 5, 5, 2, 2),
-	(6, 6, 6, 3, 3);
-
--- -----------------------------------------------------
 -- Insert into table oc_pizza.pointofsale_has_openinghours
 -- -----------------------------------------------------
 INSERT INTO oc_pizza.pointofsale_has_openinghours (
@@ -218,18 +168,16 @@ INSERT INTO oc_pizza.product (
 	paht, 
 	tva100, 
 	mesureunit, 
-	stock, 
-	compoundproduct_id_compoundproduct, 
-	compoundproduct_orderline_id_orderline, 
-	compoundproduct_orderline_product_id_product) 
+	stock) 
 VALUES 
-	(1, 'base_tomate', 'TOMAT-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 0.012, 'L', 100, 1, 1, 1),
-	(2, 'base_creme', 'CREME-6510790', '1234567890123', 'Base pizza crème', 0.50, 0.12, 0.012, 'L', 50, 1, 1, 1),
-	(3, 'basilic', 'BASILIC-6510790', '1234567890123', 'Basilic frais', 0.50, 0.12, 0.012, 'g', 100, 1, 1, 1),
-	(4, 'mozzarella', 'MOZZA-6510790', '1234567890123', 'Mozzarella B.', 0.50, 0.12, 0.012, 'g', 100, 1, 1, 1),
-	(5, 'oeuf', 'OEUF-6510790', '1234567890123', 'Oeuf Calibre M', 0.50, 0.12, 0.012, 'unit', 100, 1, 1, 1),
-	(6, 'champignon', 'CHAMP-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 0.012, 'g', 100, 1, 1, 1),
-	(7, 'olives', 'OLIVE-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 0.012, 'g', 100, 1, 1, 1);
+	(1, 'base_tomate', 'TOMAT-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 5.5, 'L', 100),
+	(2, 'base_creme', 'CREME-6510790', '1234567890123', 'Base pizza crème', 0.50, 0.12, 5.5, 'L', 50),
+	(3, 'basilic', 'BASILIC-6510790', '1234567890123', 'Basilic frais', 0.50, 0.12, 5.5, 'g', 100),
+	(4, 'mozzarella', 'MOZZA-6510790', '1234567890123', 'Mozzarella B.', 0.50, 0.12, 5.5, 'g', 150),
+	(5, 'oeuf', 'OEUF-6510790', '1234567890123', 'Oeuf Calibre M', 0.50, 0.12, 5.5, 'unit', 40),
+	(6, 'champignon', 'CHAMP-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 5.5, 'g', 400),
+	(7, 'olives', 'OLIVE-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 5.5, 'g', 100),
+	(8, 'jus_orange', 'JDF_Orange-6510790', '1234567890123', 'Jus orange (briquette de 25cl)', 2.50, 0.80, 5.5, 'unit', 50);
 
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.compoundproduct
@@ -238,10 +186,45 @@ INSERT INTO oc_pizza.compoundproduct (
 	id_compoundproduct, 
 	quantity, 
 	name, 
-	pvht, 
-	orderline_id_orderline, 
-	orderline_product_id_product) 
-VALUES (1, 1, 'Pizza1', 13.71, 1, 1);
+	pvht) 
+VALUES 
+	(1, 1, 'Pizza1', 9.45),
+	(2, 1, 'Pizza2', 11.15);
+
+-- -----------------------------------------------------
+-- Insert into table oc_pizza.compoundproduct_has_product
+-- -----------------------------------------------------
+INSERT INTO oc_pizza.compoundproduct_has_product (
+	compoundproduct_id_compoundproduct,
+	product_id_product)
+VALUES
+	(1, 1),
+	(1, 4),
+	(1, 5),
+	(1, 6),
+	(1, 7),
+	(2, 2),
+	(2, 4),
+	(2, 5),
+	(2, 6),
+	(2, 7);
+
+-- -----------------------------------------------------
+-- Insert into table oc_pizza.order
+-- -----------------------------------------------------
+INSERT INTO oc_pizza.order (
+	id_order, 
+	invoice_id_invoice, 
+	delivery_id_delivery,
+	user_id_user,
+	user_pointofsale_id_pointofsale)
+VALUES 
+	(1, 1, 1, 1, 1),
+	(2, 2, 2, 2, 2),
+	(3, 3, 3, 3, 3),
+	(4, 4, 4, 1, 1),
+	(5, 5, 5, 2, 2),
+	(6, 6, 6, 3, 3);
 
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.orderline
@@ -249,35 +232,138 @@ VALUES (1, 1, 'Pizza1', 13.71, 1, 1);
 INSERT INTO oc_pizza.orderline (
 	id_orderline, 
 	product_quantity, 
-	pvht, 
 	order_line_status, 
-	product_id_product, 
+	product_id_product,
+	compoundproduct_id_compoundproduct) 
+VALUES 
+	(1, 1, 'En cours de Préparation', null, 1),
+	(2, 1, 'En cours de Préparation', 8, null),
+	(3, 1, 'Annulation', null, 2),
+	(4, 1, 'Annulation', 8, null),
+	(5, 1, 'En cours de Préparation', null, 1),
+	(6, 1, 'En cours de Préparation', 8, null),
+	(7, 1, 'En cours de Préparation', null, 1),
+	(8, 1, 'En cours de Préparation', 8, null),
+	(9, 1, 'En cours de Préparation', null, 1),
+	(10, 1, 'En cours de Préparation', 8, null),
+	(11, 1, 'En cours de Préparation', null, 2);
+
+-- -----------------------------------------------------
+-- Insert into table oc_pizza.order_has_orderline
+-- -----------------------------------------------------
+INSERT INTO oc_pizza.order_has_orderline (
 	order_id_order, 
-	order_splitedorder_id_splitedorder, 
-	order_orderline_id_orderline, 
-	order_invoice_id_invoice, 
-	order_delivery_id_delivery, 
-	order_user_id_user, 
-	order_user_pointofsale_id_pointofsale, 
-	order_user_pointofsale_phonenumber_id_phonenumber, 
-	order_user_pointofsale_address_id_address, 
-	order_user_pointofsale_openinghours_id_openinghours, 
-	compoundproduct_id_compoundproduct, 
-	compoundproduct_orderline_id_orderline, 
-	compoundproduct_orderline_product_id_product) 
-VALUES (1, 1, 12.45, 'En cours de Préparation', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-	
+	orderline_id_orderline)
+VALUES
+	(1, 1),
+	(1, 2),
+	(2, 3),
+	(2, 4),
+	(3, 5),
+	(3, 6),
+	(4, 7),
+	(4, 8),
+	(5, 9),
+	(5, 10),
+	(6, 11);
+
 -- -----------------------------------------------------
--- Insert into table oc_pizza.user_userrole
+-- Insert into table oc_pizza.invoice
 -- -----------------------------------------------------
-INSERT INTO oc_pizza.user_userrole (
-	user_id_user, 
-	user_pointofsale_id_pointofsale, 
-	user_pointofsale_phonenumber_id_phonenumber, 
-	user_pointofsale_address_id_address, 
-	user_pointofsale_openinghours_id_openinghours, 
-	userrole_id_userrole, 
-	typedecontrat, 
-	start_date, 
-	end_date) 
-VALUES (1, 1, 1, 1, 1, 1, 'CDI', date_format('2019-01-01', "%Y-%m-%d"), NULL);
+INSERT INTO oc_pizza.invoice (
+	id_invoice, 
+	transaction_method, 
+	transaction_status, 
+	transaction_reference, 
+	transaction_date, 
+	amount) 
+VALUES 
+	(1,'CB', 'Validated', '00200000614C', date_format('2020-01-20', "%Y-%m-%d"), 14.95),
+	(2,'CB', 'Aborted', 'NULL', date_format('2020-01-21', "%Y-%m-%d"), 0.00),
+	(3,'Ticket Restaurant', 'Validated', 'CAISSE_PDV1-TRANSAC1B256225599TR', date_format('2019-12-20', "%Y-%m-%d"), 21.00),
+	(4,'Espèce', 'Validated', 'CAISSE_PDV1-TRANSAC1B256225599ESP', date_format('2019-12-20', "%Y-%m-%d"), 37.50),
+	(5,'CB', 'Validated', '00200000615C', date_format('2019-12-18', "%Y-%m-%d"), 11.00),
+	(6,'CB', 'Validated', '00200000616C', date_format('2019-12-15', "%Y-%m-%d"), 14.95);
+  
+-- -----------------------------------------------------
+-- Insert into table oc_pizza.delivery
+-- -----------------------------------------------------
+INSERT INTO oc_pizza.delivery (
+	id_delivery, 
+	date, 
+	status) 
+VALUES 
+	(1, date_format('2020-01-20', "%Y-%m-%d"), 'Delivered'),
+	(2, date_format('2019-12-20', "%Y-%m-%d"), 'Aborted'),
+	(3, date_format('2019-12-20', "%Y-%m-%d"), 'Delivered'),
+	(4, date_format('2019-12-18', "%Y-%m-%d"), 'Delivered'),
+	(5, date_format('2019-12-18', "%Y-%m-%d"), 'Delivered'),
+	(6, date_format('2019-12-18', "%Y-%m-%d"), 'In Progress');
+
+-- -----------------------------------------------------
+-- Create view list_point_of_sales
+-- -----------------------------------------------------
+CREATE OR REPLACE VIEW list_point_of_sales AS
+SELECT
+	pointofsale.name AS 'Nom du PDV',
+	pointofsale.store_manager AS 'Manager du PDV',
+	address.street_number AS 'N°',
+	address.street_name AS 'Rue',
+	address.postcode AS 'Code Postale',
+	address.city AS 'Ville'
+FROM 
+	oc_pizza.pointofsale pointofsale,
+	oc_pizza.address address
+WHERE
+	pointofsale.address_id_address = address.id_address;
+
+-- -----------------------------------------------------
+-- Create view list_users (use the commented 'where' clause to list customer only)
+-- -----------------------------------------------------
+CREATE OR REPLACE VIEW list_users AS
+SELECT
+	u.id_user AS 'ID Client',
+	u.civility AS 'Civ.',
+	u.name AS 'Nom',
+	u.lastname AS 'Prénom',
+	u.email AS 'e-Mail',
+	address.type AS 'Type adresse',
+	address.street_number AS 'N°',
+	address.street_name AS 'Rue',
+	address.postcode AS 'Code Postale',
+	address.city AS 'Ville'
+FROM 
+	oc_pizza.user u
+LEFT OUTER JOIN oc_pizza.user_address user_address
+	ON user_address.user_id_user = u.id_user 
+LEFT OUTER JOIN oc_pizza.address address
+	ON user_address.address_id_address = address.id_address;
+-- WHERE
+-- 	address.TYPE = 'Client';
+
+-- -----------------------------------------------------
+-- Create view list_orders 
+-- -----------------------------------------------------
+CREATE OR REPLACE VIEW list_orders AS
+SELECT 
+	o.id_order AS 'ID Commande',
+	invoice.id_invoice AS 'ID Facture',
+	u.name AS 'Nom',
+	u.lastname AS 'Prénom',
+	delivery.date AS 'Date de livraison',
+	delivery.status AS 'Etat Livraison',
+	count(orderline.id_orderline) AS 'Nb ligne cmd',
+	invoice.amount AS 'Total facturé'
+FROM oc_pizza.order o
+INNER JOIN oc_pizza.invoice invoice 
+	ON invoice.id_invoice = o.invoice_id_invoice 
+INNER JOIN oc_pizza.user u 
+	ON u.id_user = o.user_id_user
+INNER JOIN oc_pizza.delivery delivery 
+	ON delivery.id_delivery = o.delivery_id_delivery
+LEFT OUTER JOIN oc_pizza.order_has_orderline order_orderline
+	ON  order_orderline.order_id_order = o.id_order 
+LEFT OUTER JOIN oc_pizza.orderline orderline
+	ON orderline.id_orderline = order_orderline.orderline_id_orderline
+GROUP BY o.id_order;
+

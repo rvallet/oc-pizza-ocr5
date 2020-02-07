@@ -249,16 +249,21 @@ CREATE TABLE IF NOT EXISTS oc_pizza.compoundproduct_has_product (
 CREATE TABLE IF NOT EXISTS oc_pizza.orderline (
   id_orderline INT NOT NULL,
   product_quantity INT NULL,
-  pvht FLOAT NULL,
   order_line_status VARCHAR(45) NOT NULL,
-  product_id_product INT NOT NULL,
-  PRIMARY KEY (id_orderline, product_id_product),
+  product_id_product INT NULL,
+  compoundproduct_id_compoundproduct INT NULL,
+  PRIMARY KEY (id_orderline),
   CONSTRAINT fk_orderline_product1
     FOREIGN KEY (product_id_product)
     REFERENCES oc_pizza.product (id_product)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_orderline_compoundproduct1
+    FOREIGN KEY (compoundproduct_id_compoundproduct)
+    REFERENCES oc_pizza.compoundproduct (id_compoundproduct)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-	
+
 -- -----------------------------------------------------
 -- Create table oc_pizza.user_userrole
 -- -----------------------------------------------------

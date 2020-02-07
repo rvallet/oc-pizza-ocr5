@@ -42,9 +42,9 @@ En tant qu’analyste-programmeur, votre travail consiste, à ce stade, à défi
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [PlantUML](http://plantuml.com/en/) - UML Diagrams
 * [StarUML](http://staruml.io/) - UML Diagrams
-* [MySQL WorkBench] (https://www.mysql.com/) - SGB MySQL, pour la conception du Modèle Physique de Donnée
-* [DBeaver] (https://dbeaver.io/) - SGBD universelle, pour l'écriture des scripts SQL et des tests MySQL
-* [WampServer] (http://www.wampserver.com/) - Plateforme Apache, PHP, MySQL (+PHP MyAdmin)
+* [MySQL WorkBench](https://www.mysql.com/) - SGB MySQL, pour la conception du Modèle Physique de Donnée
+* [DBeaver](https://dbeaver.io/) - SGBD universelle, pour l'écriture des scripts SQL et des tests MySQL
+* [WampServer](http://www.wampserver.com/) - Plateforme Apache, PHP, MySQL (+PHP MyAdmin)
 
 ## Authors
 

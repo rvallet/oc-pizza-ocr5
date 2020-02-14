@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 07 fév. 2020 à 16:58
+-- Généré le :  ven. 14 fév. 2020 à 13:36
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.2.18
 
@@ -65,9 +65,8 @@ INSERT INTO `address` (`id_address`, `type`, `street_number`, `street_name`, `po
 DROP TABLE IF EXISTS `compoundproduct`;
 CREATE TABLE IF NOT EXISTS `compoundproduct` (
   `id_compoundproduct` int(11) NOT NULL,
-  `quantity` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `pvht` decimal(5,2) DEFAULT NULL,
+  `pvht` decimal(6,2) DEFAULT NULL,
   PRIMARY KEY (`id_compoundproduct`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -75,9 +74,9 @@ CREATE TABLE IF NOT EXISTS `compoundproduct` (
 -- Déchargement des données de la table `compoundproduct`
 --
 
-INSERT INTO `compoundproduct` (`id_compoundproduct`, `quantity`, `name`, `pvht`) VALUES
-(1, 1, 'Pizza1', '9.45'),
-(2, 1, 'Pizza2', '11.15');
+INSERT INTO `compoundproduct` (`id_compoundproduct`, `name`, `pvht`) VALUES
+(1, 'Pizza1', '9.45'),
+(2, 'Pizza2', '11.15');
 
 -- --------------------------------------------------------
 
@@ -89,6 +88,7 @@ DROP TABLE IF EXISTS `compoundproduct_has_product`;
 CREATE TABLE IF NOT EXISTS `compoundproduct_has_product` (
   `compoundproduct_id_compoundproduct` int(11) NOT NULL,
   `product_id_product` int(11) NOT NULL,
+  `quantity` decimal(7,3) DEFAULT NULL,
   PRIMARY KEY (`compoundproduct_id_compoundproduct`,`product_id_product`),
   KEY `fk_compoundproduct_has_product_product1` (`product_id_product`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -97,17 +97,17 @@ CREATE TABLE IF NOT EXISTS `compoundproduct_has_product` (
 -- Déchargement des données de la table `compoundproduct_has_product`
 --
 
-INSERT INTO `compoundproduct_has_product` (`compoundproduct_id_compoundproduct`, `product_id_product`) VALUES
-(1, 1),
-(1, 4),
-(1, 5),
-(1, 6),
-(1, 7),
-(2, 2),
-(2, 4),
-(2, 5),
-(2, 6),
-(2, 7);
+INSERT INTO `compoundproduct_has_product` (`compoundproduct_id_compoundproduct`, `product_id_product`, `quantity`) VALUES
+(1, 1, '0.125'),
+(1, 4, '5.000'),
+(1, 5, '1.000'),
+(1, 6, '5.000'),
+(1, 7, '5.000'),
+(2, 2, '0.125'),
+(2, 4, '5.000'),
+(2, 5, '1.000'),
+(2, 6, '7.000'),
+(2, 7, '5.000');
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   `transaction_status` varchar(45) DEFAULT NULL,
   `transaction_reference` varchar(255) NOT NULL,
   `transaction_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `amount` decimal(5,2) NOT NULL,
+  `amount` decimal(6,2) NOT NULL,
   PRIMARY KEY (`id_invoice`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `list_orders` (
 ,`Date de livraison` datetime
 ,`Etat Livraison` varchar(45)
 ,`Nb ligne cmd` bigint(21)
-,`Total facturé` decimal(5,2)
+,`Total facturé` decimal(6,2)
 );
 
 -- --------------------------------------------------------
@@ -434,12 +434,10 @@ CREATE TABLE IF NOT EXISTS `product` (
   `sku` varchar(45) DEFAULT NULL,
   `ean13` varchar(45) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `pvht` decimal(5,2) NOT NULL,
-  `paht` decimal(5,2) NOT NULL,
-  `tva100` decimal(5,2) DEFAULT NULL,
+  `pvht` decimal(6,2) NOT NULL,
+  `paht` decimal(6,2) NOT NULL,
+  `tva100` decimal(6,2) DEFAULT NULL,
   `mesureunit` varchar(45) DEFAULT NULL,
-  `stock` decimal(5,2) DEFAULT NULL,
-  `productcol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_product`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -447,15 +445,63 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Déchargement des données de la table `product`
 --
 
-INSERT INTO `product` (`id_product`, `internal_reference`, `sku`, `ean13`, `name`, `pvht`, `paht`, `tva100`, `mesureunit`, `stock`, `productcol`) VALUES
-(1, 'base_tomate', 'TOMAT-6510790', '1234567890123', 'Base pizza tomate concentré', '0.50', '0.12', '5.50', 'L', '100.00', NULL),
-(2, 'base_creme', 'CREME-6510790', '1234567890123', 'Base pizza crème', '0.50', '0.12', '5.50', 'L', '50.00', NULL),
-(3, 'basilic', 'BASILIC-6510790', '1234567890123', 'Basilic frais', '0.50', '0.12', '5.50', 'g', '100.00', NULL),
-(4, 'mozzarella', 'MOZZA-6510790', '1234567890123', 'Mozzarella B.', '0.50', '0.12', '5.50', 'g', '150.00', NULL),
-(5, 'oeuf', 'OEUF-6510790', '1234567890123', 'Oeuf Calibre M', '0.50', '0.12', '5.50', 'unit', '40.00', NULL),
-(6, 'champignon', 'CHAMP-6510790', '1234567890123', 'Base pizza tomate concentré', '0.50', '0.12', '5.50', 'g', '400.00', NULL),
-(7, 'olives', 'OLIVE-6510790', '1234567890123', 'Base pizza tomate concentré', '0.50', '0.12', '5.50', 'g', '100.00', NULL),
-(8, 'jus_orange', 'JDF_Orange-6510790', '1234567890123', 'Jus orange (briquette de 25cl)', '2.50', '0.80', '5.50', 'unit', '50.00', NULL);
+INSERT INTO `product` (`id_product`, `internal_reference`, `sku`, `ean13`, `name`, `pvht`, `paht`, `tva100`, `mesureunit`) VALUES
+(1, 'base_tomate', 'TOMAT-6510790', '1234567890123', 'Base pizza tomate concentré', '0.50', '0.12', '5.50', NULL),
+(2, 'base_creme', 'CREME-6510790', '1234567890123', 'Base pizza crème', '0.50', '0.12', '5.50', NULL),
+(3, 'basilic', 'BASILIC-6510790', '1234567890123', 'Basilic frais', '0.50', '0.12', '5.50', NULL),
+(4, 'mozzarella', 'MOZZA-6510790', '1234567890123', 'Mozzarella B.', '0.50', '0.12', '5.50', NULL),
+(5, 'oeuf', 'OEUF-6510790', '1234567890123', 'Oeuf Calibre M', '0.50', '0.12', '5.50', NULL),
+(6, 'champignon', 'CHAMP-6510790', '1234567890123', 'Champignons de Paris', '0.50', '0.12', '5.50', NULL),
+(7, 'olives', 'OLIVE-6510790', '1234567890123', 'Olives noire dénoyautées', '0.50', '0.12', '5.50', NULL),
+(8, 'jus_orange', 'JDF_Orange-6510790', '1234567890123', 'Jus orange (briquette de 25cl)', '2.50', '0.80', '5.50', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `stock`
+--
+
+DROP TABLE IF EXISTS `stock`;
+CREATE TABLE IF NOT EXISTS `stock` (
+  `id_stock` int(11) NOT NULL,
+  `pointofsale_id_pointofsale` int(11) NOT NULL,
+  `product_id_product` int(11) NOT NULL,
+  `stock` decimal(7,3) DEFAULT NULL,
+  `mesureunit` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_stock`),
+  KEY `fk_stock_pointofsale1` (`pointofsale_id_pointofsale`),
+  KEY `fk_stock_product1` (`product_id_product`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `stock`
+--
+
+INSERT INTO `stock` (`id_stock`, `pointofsale_id_pointofsale`, `product_id_product`, `stock`, `mesureunit`) VALUES
+(1, 1, 1, '1000.000', 'L'),
+(2, 1, 2, '50.500', 'L'),
+(3, 1, 3, '100.000', 'g'),
+(4, 1, 4, '150.000', 'g'),
+(5, 1, 5, '40.000', 'unit'),
+(6, 1, 6, '400.000', 'g'),
+(7, 1, 7, '100.000', 'g'),
+(8, 1, 8, '50.000', 'unit'),
+(9, 2, 1, '189.000', 'L'),
+(10, 2, 2, '112.000', 'L'),
+(11, 2, 3, '50.000', 'g'),
+(12, 2, 4, '62.000', 'g'),
+(13, 2, 5, '25.000', 'unit'),
+(14, 2, 6, '250.000', 'g'),
+(15, 2, 7, '300.000', 'g'),
+(16, 2, 8, '42.000', 'unit'),
+(17, 3, 1, '67.000', 'L'),
+(18, 3, 2, '42.000', 'L'),
+(19, 3, 3, '250.000', 'g'),
+(20, 3, 4, '40.000', 'g'),
+(21, 3, 5, '15.000', 'unit'),
+(22, 3, 6, '325.000', 'g'),
+(23, 3, 7, '150.000', 'g'),
+(24, 3, 8, '12.000', 'unit');
 
 -- --------------------------------------------------------
 
@@ -583,7 +629,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `list_point_of_sales`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `list_point_of_sales`  AS  select `opos`.`name` AS `Nom du PDV`,`opos`.`store_manager` AS `Manager du PDV`,`oa`.`street_number` AS `N°`,`oa`.`street_name` AS `Rue`,`oa`.`postcode` AS `Code Postale`,`oa`.`city` AS `Ville` from (`pointofsale` `opos` join `address` `oa`) where (`opos`.`address_id_address` = `oa`.`id_address`) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `list_point_of_sales`  AS  select `pointofsale`.`name` AS `Nom du PDV`,`pointofsale`.`store_manager` AS `Manager du PDV`,`address`.`street_number` AS `N°`,`address`.`street_name` AS `Rue`,`address`.`postcode` AS `Code Postale`,`address`.`city` AS `Ville` from (`pointofsale` join `address`) where (`pointofsale`.`address_id_address` = `address`.`id_address`) ;
 
 -- --------------------------------------------------------
 

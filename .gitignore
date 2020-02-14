@@ -20,7 +20,11 @@ buildNumber.properties
 /classes/
 
 # Eclipse
-/.settings/
+.settings/
 .classpath
 .project
 bin/
+
+# Excell
+*.xlsx
+*.xls

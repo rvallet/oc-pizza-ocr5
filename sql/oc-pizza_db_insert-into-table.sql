@@ -166,48 +166,81 @@ INSERT INTO oc_pizza.product (
 	name, 
 	pvht, 
 	paht, 
-	tva100, 
-	mesureunit, 
-	stock) 
+	tva100) 
 VALUES 
-	(1, 'base_tomate', 'TOMAT-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 5.5, 'L', 100),
-	(2, 'base_creme', 'CREME-6510790', '1234567890123', 'Base pizza crème', 0.50, 0.12, 5.5, 'L', 50),
-	(3, 'basilic', 'BASILIC-6510790', '1234567890123', 'Basilic frais', 0.50, 0.12, 5.5, 'g', 100),
-	(4, 'mozzarella', 'MOZZA-6510790', '1234567890123', 'Mozzarella B.', 0.50, 0.12, 5.5, 'g', 150),
-	(5, 'oeuf', 'OEUF-6510790', '1234567890123', 'Oeuf Calibre M', 0.50, 0.12, 5.5, 'unit', 40),
-	(6, 'champignon', 'CHAMP-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 5.5, 'g', 400),
-	(7, 'olives', 'OLIVE-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 5.5, 'g', 100),
-	(8, 'jus_orange', 'JDF_Orange-6510790', '1234567890123', 'Jus orange (briquette de 25cl)', 2.50, 0.80, 5.5, 'unit', 50);
+	(1, 'base_tomate', 'TOMAT-6510790', '1234567890123', 'Base pizza tomate concentré', 0.50, 0.12, 5.5),
+	(2, 'base_creme', 'CREME-6510790', '1234567890123', 'Base pizza crème', 0.50, 0.12, 5.5),
+	(3, 'basilic', 'BASILIC-6510790', '1234567890123', 'Basilic frais', 0.50, 0.12, 5.5),
+	(4, 'mozzarella', 'MOZZA-6510790', '1234567890123', 'Mozzarella B.', 0.50, 0.12, 5.5),
+	(5, 'oeuf', 'OEUF-6510790', '1234567890123', 'Oeuf Calibre M', 0.50, 0.12, 5.5),
+	(6, 'champignon', 'CHAMP-6510790', '1234567890123', 'Champignons de Paris', 0.50, 0.12, 5.5),
+	(7, 'olives', 'OLIVE-6510790', '1234567890123', 'Olives noire dénoyautées', 0.50, 0.12, 5.5),
+	(8, 'jus_orange', 'JDF_Orange-6510790', '1234567890123', 'Jus orange (briquette de 25cl)', 2.50, 0.80, 5.5);
 
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.compoundproduct
 -- -----------------------------------------------------
 INSERT INTO oc_pizza.compoundproduct (
 	id_compoundproduct, 
-	quantity, 
 	name, 
 	pvht) 
 VALUES 
-	(1, 1, 'Pizza1', 9.45),
-	(2, 1, 'Pizza2', 11.15);
+	(1, 'Pizza1', 9.45),
+	(2, 'Pizza2', 11.15);
 
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.compoundproduct_has_product
 -- -----------------------------------------------------
 INSERT INTO oc_pizza.compoundproduct_has_product (
 	compoundproduct_id_compoundproduct,
-	product_id_product)
+	product_id_product,
+	quantity)
 VALUES
-	(1, 1),
-	(1, 4),
-	(1, 5),
-	(1, 6),
-	(1, 7),
-	(2, 2),
-	(2, 4),
-	(2, 5),
-	(2, 6),
-	(2, 7);
+	(1, 1, 0.125),
+	(1, 4, 5),
+	(1, 5, 1),
+	(1, 6, 5),
+	(1, 7, 5),
+	(2, 2, 0.125),
+	(2, 4, 5),
+	(2, 5, 1),
+	(2, 6, 7),
+	(2, 7, 5);
+
+-- -----------------------------------------------------
+-- Insert into table oc_pizza.stock
+-- -----------------------------------------------------
+INSERT INTO oc_pizza.stock (
+	id_stock,
+	pointofsale_id_pointofsale,
+	product_id_product,
+	mesureunit,
+	stock)
+VALUES 
+	(1, 1, 1, 'L', 100),
+	(2, 1, 2, 'L', 50),
+	(3, 1, 3, 'g', 100),
+	(4, 1, 4, 'g', 150),
+	(5, 1, 5, 'unit', 40),
+	(6, 1, 6, 'g', 400),
+	(7, 1, 7, 'g', 100),
+	(8, 1, 8, 'unit', 50),
+	(9, 2, 1, 'L', 89),
+	(10, 2, 2, 'L', 112),
+	(11, 2, 3, 'g', 50),
+	(12, 2, 4, 'g', 62),
+	(13, 2, 5, 'unit', 25),
+	(14, 2, 6, 'g', 250),
+	(15, 2, 7, 'g', 300),
+	(16, 2, 8, 'unit', 42),
+	(17, 3, 1, 'L', 67),
+	(18, 3, 2, 'L', 42),
+	(19, 3, 3, 'g', 250),
+	(20, 3, 4, 'g', 40),
+	(21, 3, 5, 'unit', 15),
+	(22, 3, 6, 'g', 325),
+	(23, 3, 7, 'g', 150),
+	(24, 3, 8, 'unit', 12);
 
 -- -----------------------------------------------------
 -- Insert into table oc_pizza.order
@@ -366,4 +399,30 @@ LEFT OUTER JOIN oc_pizza.order_has_orderline order_orderline
 LEFT OUTER JOIN oc_pizza.orderline orderline
 	ON orderline.id_orderline = order_orderline.orderline_id_orderline
 GROUP BY o.id_order;
+
+-- -----------------------------------------------------
+-- Display Recipes (exemple)
+-- -----------------------------------------------------
+SELECT 
+	compoundproduct.name AS 'Nom',
+	p.id_product AS 'ID Product',
+	p.sku AS 'Ref Frs',
+	p.internal_reference AS 'Ref OCP',
+	CONCAT(produt.quantity, ' ',stock.mesureunit)  AS 'Quantité',
+	p.name AS 'Libellé',
+	stock.stock AS 'Stock PDV',
+	stock.mesureunit AS 'Unit',
+	pointofsale.name AS 'Point de Vente',
+	stock.stock >= produt.quantity AS 'Dispo'
+FROM oc_pizza.product p
+LEFT OUTER JOIN oc_pizza.compoundproduct_has_product produt
+	ON  produt.product_id_product = p.id_product 
+LEFT OUTER JOIN oc_pizza.compoundproduct compoundproduct
+	ON compoundproduct.id_compoundproduct = produt.compoundproduct_id_compoundproduct
+LEFT OUTER JOIN oc_pizza.stock stock
+	ON stock.product_id_product = p.id_product 
+LEFT OUTER JOIN oc_pizza.pointofsale pointofsale 
+	ON pointofsale.id_pointofsale = stock.pointofsale_id_pointofsale 
+WHERE
+	compoundproduct.id_compoundproduct = '1' AND stock.pointofsale_id_pointofsale = '2';
 

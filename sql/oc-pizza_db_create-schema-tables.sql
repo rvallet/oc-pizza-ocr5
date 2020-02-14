@@ -211,8 +211,6 @@ CREATE TABLE IF NOT EXISTS oc_pizza.product (
   paht DECIMAL(5,2) NOT NULL,
   tva100 DECIMAL(5,2) NULL,
   mesureunit VARCHAR(45) NULL,
-  stock DECIMAL(5,2) NULL,
-  productcol VARCHAR(45) NULL,
   PRIMARY KEY (id_product))
   
 -- -----------------------------------------------------
@@ -220,7 +218,6 @@ CREATE TABLE IF NOT EXISTS oc_pizza.product (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS oc_pizza.compoundproduct (
   id_compoundproduct INT NOT NULL,
-  quantity INT NULL,
   name VARCHAR(255) NULL,
   pvht DECIMAL(5,2) NULL,
   PRIMARY KEY (id_compoundproduct))
@@ -231,6 +228,7 @@ CREATE TABLE IF NOT EXISTS oc_pizza.compoundproduct (
 CREATE TABLE IF NOT EXISTS oc_pizza.compoundproduct_has_product (
   compoundproduct_id_compoundproduct INT NOT NULL,
   product_id_product INT NOT NULL,
+  quantity DECIMAL(5,2) NULL,
   PRIMARY KEY (compoundproduct_id_compoundproduct, product_id_product),
   CONSTRAINT fk_compoundproduct_has_product_compoundproduct1
     FOREIGN KEY (compoundproduct_id_compoundproduct)
@@ -240,6 +238,27 @@ CREATE TABLE IF NOT EXISTS oc_pizza.compoundproduct_has_product (
   CONSTRAINT fk_compoundproduct_has_product_product1
     FOREIGN KEY (product_id_product)
     REFERENCES oc_pizza.product (id_product)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+    
+-- -----------------------------------------------------
+-- Table oc_pizza.stock
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS oc_pizza.stock (
+  `id_stock` INT NOT NULL,
+  `pointofsale_id_pointofsale` INT NOT NULL,
+  `product_id_product` INT NOT NULL,
+  `stock` DECIMAL(5,2) NULL,
+  `mesureunit` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_stock`),
+  CONSTRAINT `fk_stock_pointofsale1`
+    FOREIGN KEY (`pointofsale_id_pointofsale`)
+    REFERENCES `oc_pizza`.`pointofsale` (`id_pointofsale`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_stock_product1`
+    FOREIGN KEY (`product_id_product`)
+    REFERENCES `oc_pizza`.`product` (`id_product`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 	

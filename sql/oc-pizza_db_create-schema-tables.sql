@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS oc_pizza.compoundproduct;
 DROP TABLE IF EXISTS oc_pizza.compoundproduct_has_product;
 DROP TABLE IF EXISTS oc_pizza.pointofsale_has_openinghours;
 DROP TABLE IF EXISTS oc_pizza.order_has_orderline;
+DROP TABLE IF EXISTS oc_pizza.stock;
 
 -- -----------------------------------------------------
 -- Create table oc_pizza.address
@@ -124,7 +125,7 @@ CREATE TABLE IF NOT EXISTS oc_pizza.invoice (
   transaction_status VARCHAR(45) NULL,
   transaction_reference VARCHAR(255) NOT NULL,
   transaction_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  amount DECIMAL(5,2) NOT NULL,
+  amount DECIMAL(6,2) NOT NULL,
   PRIMARY KEY (id_invoice))
   
 -- -----------------------------------------------------
@@ -207,9 +208,9 @@ CREATE TABLE IF NOT EXISTS oc_pizza.product (
   sku VARCHAR(45) NULL,
   ean13 VARCHAR(45) NULL,
   name VARCHAR(255) NULL,
-  pvht DECIMAL(5,2) NOT NULL,
-  paht DECIMAL(5,2) NOT NULL,
-  tva100 DECIMAL(5,2) NULL,
+  pvht DECIMAL(6,2) NOT NULL,
+  paht DECIMAL(6,2) NOT NULL,
+  tva100 DECIMAL(6,2) NULL,
   mesureunit VARCHAR(45) NULL,
   PRIMARY KEY (id_product))
   
@@ -219,7 +220,7 @@ CREATE TABLE IF NOT EXISTS oc_pizza.product (
 CREATE TABLE IF NOT EXISTS oc_pizza.compoundproduct (
   id_compoundproduct INT NOT NULL,
   name VARCHAR(255) NULL,
-  pvht DECIMAL(5,2) NULL,
+  pvht DECIMAL(6,2) NULL,
   PRIMARY KEY (id_compoundproduct))
   
 -- -----------------------------------------------------
@@ -228,7 +229,7 @@ CREATE TABLE IF NOT EXISTS oc_pizza.compoundproduct (
 CREATE TABLE IF NOT EXISTS oc_pizza.compoundproduct_has_product (
   compoundproduct_id_compoundproduct INT NOT NULL,
   product_id_product INT NOT NULL,
-  quantity DECIMAL(5,2) NULL,
+  quantity DECIMAL(7,3) NULL,
   PRIMARY KEY (compoundproduct_id_compoundproduct, product_id_product),
   CONSTRAINT fk_compoundproduct_has_product_compoundproduct1
     FOREIGN KEY (compoundproduct_id_compoundproduct)
@@ -245,20 +246,20 @@ CREATE TABLE IF NOT EXISTS oc_pizza.compoundproduct_has_product (
 -- Table oc_pizza.stock
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS oc_pizza.stock (
-  `id_stock` INT NOT NULL,
-  `pointofsale_id_pointofsale` INT NOT NULL,
-  `product_id_product` INT NOT NULL,
-  `stock` DECIMAL(5,2) NULL,
-  `mesureunit` VARCHAR(45) NULL,
-  PRIMARY KEY (`id_stock`),
-  CONSTRAINT `fk_stock_pointofsale1`
-    FOREIGN KEY (`pointofsale_id_pointofsale`)
-    REFERENCES `oc_pizza`.`pointofsale` (`id_pointofsale`)
+  id_stock INT NOT NULL,
+  pointofsale_id_pointofsale INT NOT NULL,
+  product_id_product INT NOT NULL,
+  stock DECIMAL(7,3) NULL,
+  mesureunit VARCHAR(45) NULL,
+  PRIMARY KEY (id_stock),
+  CONSTRAINT fk_stock_pointofsale1
+    FOREIGN KEY (pointofsale_id_pointofsale)
+    REFERENCES oc_pizza.pointofsale (id_pointofsale)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_stock_product1`
-    FOREIGN KEY (`product_id_product`)
-    REFERENCES `oc_pizza`.`product` (`id_product`)
+  CONSTRAINT fk_stock_product1
+    FOREIGN KEY (product_id_product)
+    REFERENCES oc_pizza.product (id_product)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 	

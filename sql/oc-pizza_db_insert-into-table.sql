@@ -217,15 +217,15 @@ INSERT INTO oc_pizza.stock (
 	mesureunit,
 	stock)
 VALUES 
-	(1, 1, 1, 'L', 100),
-	(2, 1, 2, 'L', 50),
+	(1, 1, 1, 'L', 1000),
+	(2, 1, 2, 'L', 50.5),
 	(3, 1, 3, 'g', 100),
 	(4, 1, 4, 'g', 150),
 	(5, 1, 5, 'unit', 40),
 	(6, 1, 6, 'g', 400),
 	(7, 1, 7, 'g', 100),
 	(8, 1, 8, 'unit', 50),
-	(9, 2, 1, 'L', 89),
+	(9, 2, 1, 'L', 189),
 	(10, 2, 2, 'L', 112),
 	(11, 2, 3, 'g', 50),
 	(12, 2, 4, 'g', 62),
@@ -408,17 +408,17 @@ SELECT
 	p.id_product AS 'ID Product',
 	p.sku AS 'Ref Frs',
 	p.internal_reference AS 'Ref OCP',
-	CONCAT(produt.quantity, ' ',stock.mesureunit)  AS 'Quantité',
+	CONCAT(product.quantity, ' ',stock.mesureunit)  AS 'Quantité',
 	p.name AS 'Libellé',
 	stock.stock AS 'Stock PDV',
 	stock.mesureunit AS 'Unit',
 	pointofsale.name AS 'Point de Vente',
-	stock.stock >= produt.quantity AS 'Dispo'
+	stock.stock >= product.quantity AS 'Dispo'
 FROM oc_pizza.product p
-LEFT OUTER JOIN oc_pizza.compoundproduct_has_product produt
-	ON  produt.product_id_product = p.id_product 
+LEFT OUTER JOIN oc_pizza.compoundproduct_has_product product
+	ON  product.product_id_product = p.id_product 
 LEFT OUTER JOIN oc_pizza.compoundproduct compoundproduct
-	ON compoundproduct.id_compoundproduct = produt.compoundproduct_id_compoundproduct
+	ON compoundproduct.id_compoundproduct = product.compoundproduct_id_compoundproduct
 LEFT OUTER JOIN oc_pizza.stock stock
 	ON stock.product_id_product = p.id_product 
 LEFT OUTER JOIN oc_pizza.pointofsale pointofsale 

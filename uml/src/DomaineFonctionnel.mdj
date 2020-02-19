@@ -2286,7 +2286,7 @@
 											"font": "Arial;13;1",
 											"left": 885,
 											"top": 415,
-											"width": 217.13427734375,
+											"width": 117.70458984375,
 											"height": 13,
 											"text": "CompoundProduct"
 										},
@@ -2321,7 +2321,7 @@
 									"font": "Arial;13;0",
 									"left": 880,
 									"top": 408,
-									"width": 227.13427734375,
+									"width": 127.70458984375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFvj32Bty+MzA4="
@@ -2358,7 +2358,7 @@
 											"font": "Arial;13;0",
 											"left": 885,
 											"top": 438,
-											"width": 217.13427734375,
+											"width": 117.70458984375,
 											"height": 13,
 											"text": "+name: String",
 											"horizontalAlignment": 0
@@ -2393,7 +2393,7 @@
 											"font": "Arial;13;0",
 											"left": 885,
 											"top": 453,
-											"width": 217.13427734375,
+											"width": 117.70458984375,
 											"height": 13,
 											"text": "+pvht: float",
 											"horizontalAlignment": 0
@@ -2410,7 +2410,7 @@
 											"font": "Arial;13;0",
 											"left": 885,
 											"top": 468,
-											"width": 217.13427734375,
+											"width": 117.70458984375,
 											"height": 13,
 											"text": "+quantity",
 											"horizontalAlignment": 0
@@ -2419,7 +2419,7 @@
 									"font": "Arial;13;0",
 									"left": 880,
 									"top": 433,
-									"width": 227.13427734375,
+									"width": 127.70458984375,
 									"height": 53
 								},
 								{
@@ -2434,7 +2434,7 @@
 									"font": "Arial;13;0",
 									"left": 880,
 									"top": 486,
-									"width": 227.13427734375,
+									"width": 127.70458984375,
 									"height": 10
 								},
 								{
@@ -2474,7 +2474,7 @@
 							"containerChangeable": true,
 							"left": 880,
 							"top": 408,
-							"width": 227.13427734375,
+							"width": 127.70458984375,
 							"height": 88,
 							"nameCompartment": {
 								"$ref": "AAAAAAFvj32Bty+Lc5E="
@@ -7212,9 +7212,9 @@
 										"$ref": "AAAAAAFwQ1ajEdRCDuI="
 									},
 									"font": "Arial;13;0",
-									"left": 832,
+									"left": 831,
 									"top": 430,
-									"width": 5.05908203125,
+									"width": 6.5,
 									"height": 13,
 									"alpha": -0.29967132720678746,
 									"distance": 46.32493928760188,
@@ -8461,7 +8461,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFvj32Bti+IVUY="
 							},
-							"name": "quantity"
+							"name": "quantity",
+							"type": ""
 						}
 					]
 				},
